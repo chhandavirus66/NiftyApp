@@ -13,6 +13,19 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      # APK build karne ke liye Java zaroori hai
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      # Flet background mein Flutter use karta hai
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -23,9 +36,10 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install "flet==0.28.3" requests
 
+      # Pichla error yahan fix kiya gaya hai
       - name: Verify Flet Version
         run: |
-          python -c "import flet; print('Flet Python:', flet.__version__)"
+          python -c "import importlib.metadata; print('Flet Python:', importlib.metadata.version('flet'))"
           flet --version
 
       - name: Clean Previous Build
