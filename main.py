@@ -11,9 +11,8 @@ def main(page: ft.Page):
     page.bgcolor = "#0B0F19"
     page.padding = 15
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    page.window_width = 420
-    page.window_height = 850
     page.scroll = ft.ScrollMode.AUTO  # Screen scrollable rahegi
+    # (Fix: window_width aur window_height hata diye gaye hain kyunki mobile inko support nahi karta aur crash karta hai)
 
     price_history = []
     auto_refresh_active = False
@@ -107,7 +106,7 @@ def main(page: ft.Page):
 
         time.sleep(0.5) # Thoda delay real feeling ke liye
         
-        # MOCK AI Logic (Baad mein yahan Gemini API lagayenge)
+        # MOCK AI Logic
         if "sikhna" in query or "kya hai" in query or "kaise" in query or "teach" in query or "seekhna" in query:
             ai_reply = "🤖 Nifty Guru: Zarur! Main aapko bilkul aasan bhasha mein sikhaunga. Trading mein sabse zaroori hai trend aur patience. Boliye, aap kis topic se shuru karna chahenge?"
         elif "market" in query or "trend" in query:
@@ -190,7 +189,6 @@ def main(page: ft.Page):
                 line_chart.max_y = max_p
                 line_chart.horizontal_grid_lines.interval = max(1, (max_p - min_p) / 4)
 
-            # Box 1 & Box 2 Logic
             if price > resistance:
                 vol_text.value = f"🚀 BREAKOUT!\nBuy Call | SL: {price-20}"
                 vol_text.color = ft.colors.GREEN_300
@@ -207,7 +205,6 @@ def main(page: ft.Page):
             else:
                 trend_15m_text.value = "Gathering data..."
 
-            # Box 3 Logic (Macro Prediction)
             diff_from_prev = price - prev_close
             pct_change = (diff_from_prev / prev_close) * 100
             macro_sentiment = "BULLISH CUES 🟢" if diff_from_prev >= 0 else "BEARISH CUES 🔴"
@@ -255,9 +252,5 @@ def main(page: ft.Page):
         ai_box, ft.Container(height=2),
         ft.Row([scan_btn, auto_switch], alignment=ft.MainAxisAlignment.SPACE_BETWEEN, width=380),
         ft.Container(height=5),
-        assistant_box  # <-- The AI Assistant Mentor
+        assistant_box
     )
-
-if __name__ == "__main__":
-    if hasattr(ft, "app"):
-        ft.app(target=main)
