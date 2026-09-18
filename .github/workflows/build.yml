@@ -22,7 +22,6 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.3'  # FIX: Flutter version lock kar diya gaya hai
           channel: 'stable'
 
       - name: Setup Python
@@ -30,10 +29,16 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Libraries
+      # YEH NAYA STEP HAI: Yeh ensure karega ki flet phone ke andar requests pack kare
+      - name: Force APK Requirements
+        run: |
+          echo "flet==0.28.3" > requirements.txt
+          echo "requests" >> requirements.txt
+
+      - name: Install System Libraries
         run: |
           python -m pip install --upgrade pip
-          python -m pip install "flet==0.26.0" requests
+          python -m pip install flet==0.28.3
 
       - name: Build APK
         run: |
