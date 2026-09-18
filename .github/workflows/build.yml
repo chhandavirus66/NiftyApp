@@ -32,38 +32,17 @@ jobs:
       - name: Install Libraries
         run: |
           python -m pip install --upgrade pip
-          python -m pip install "flet==0.28.3" requests
-
-      - name: Verify Flet Version
-        run: |
-          python -c "import importlib.metadata; print('Flet Python:', importlib.metadata.version('flet'))"
-          flet --version
-
-      - name: Clean Previous Build
-        run: |
-          rm -rf build
-          rm -rf release
-          mkdir -p release
+          # Yahan humne stable version (0.26.0) lock kar diya hai
+          python -m pip install "flet==0.26.0" requests
 
       - name: Build APK
         run: |
           yes y | flet build apk
 
-      - name: Find APK
-        run: |
-          echo "Searching for generated APK..."
-          find . -type f -name "*.apk" -print
-
       - name: Prepare Final APK
         run: |
-          APK=$(find . -type f -name "*.apk" | head -n 1)
-
-          if [ -z "$APK" ]; then
-            echo "ERROR: APK was not generated."
-            exit 1
-          fi
-
-          echo "Found APK: $APK"
+          mkdir -p release
+          APK=$(find build -type f -name "*.apk" | head -n 1)
           cp "$APK" release/NiftyPro.apk
 
       - name: Upload Final APK
@@ -72,3 +51,4 @@ jobs:
           name: NiftyPro-Mobile-App
           path: release/NiftyPro.apk
           if-no-files-found: error
+          
