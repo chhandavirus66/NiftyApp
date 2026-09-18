@@ -22,9 +22,15 @@ jobs:
 
       - name: Build APK (Flet Engine)
         run: echo "y" | flet build apk
+
+      - name: Find APK Path
+        run: find . -name "*.apk"
         
       - name: Upload Final APK
         uses: actions/upload-artifact@v4
         with:
           name: NiftyPro-Mobile-App
-          path: "*/.apk"
+          path: |
+            build/apk/*/.apk
+            **/output.apk
+            */.apk
