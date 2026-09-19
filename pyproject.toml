@@ -1,7 +1,12 @@
+[build-system]
+requires = ["setuptools>=61.0.0"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "nifty_quant_terminal"
 version = "13.1.0"
 description = "Nifty Pro Quant Terminal"
+requires-python = ">=3.10"
 dependencies = [
     "flet",
     "yfinance",
@@ -17,4 +22,3 @@ dependencies = [
 product = "Nifty Pro Quant Terminal"
 company = "Quant"
 copyright = "Copyright (C) 2026"
-
