@@ -1,2 +1,8 @@
 flet
+yfinance
+pandas
 requests
+numpy
+multitasking
+peewee
+beautifulsoup4
