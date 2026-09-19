@@ -1,0 +1,20 @@
+[project]
+name = "nifty_quant_terminal"
+version = "13.1.0"
+description = "Nifty Pro Quant Terminal"
+dependencies = [
+    "flet",
+    "yfinance",
+    "pandas",
+    "requests",
+    "numpy",
+    "multitasking",
+    "peewee",
+    "beautifulsoup4"
+]
+
+[tool.flet]
+product = "Nifty Pro Quant Terminal"
+company = "Quant"
+copyright = "Copyright (C) 2026"
+
