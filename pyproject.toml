@@ -17,6 +17,7 @@ dependencies = [
     "beautifulsoup4"
 ]
 
-[tool.flet]
+[tool.flet.app]
+path = "main.py"
 product = "Nifty Pro Quant Terminal"
 company = "Quant"
